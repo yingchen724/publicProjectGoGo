@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cart Page</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h2>Cart Page</h2>
+		<a href="/products">Continue Shopping</a>
+		<div class="row">
+			<table class="table table-light table-hover" border="1">
+				<tr class="table table-danger">
+					<th>Id</th>
+					<th>Name</th>
+					<th>Photo</th>
+					<th>Price</th>
+					<th>Qty</th>
+					<th>Action</th>
+				</tr>
+				<tr th:each="item:${cart}">
+					<td th:text="${item.product.id}"></td>
+					<td th:text="${item.product.productname}"></td>
+					<td><img th:src="@{'/'+${item.product.path}}" width="150" /></td>
+					<td th:text="${item.product.price}"></td>
+					<td><input type="number" th:value="${item.quantity}"
+						th:id="@{'num'+${item.product.id}}" onclick="saveNumber"/></td>
+					<td th:text="${item.product.id}"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
