@@ -27,7 +27,6 @@ DROP TABLE IF EXISTS `porder`;
 CREATE TABLE `porder` (
   `porderid` varchar(255) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
-  `employeeid` int DEFAULT NULL,
   `memberid` int DEFAULT NULL,
   `orderdate` datetime DEFAULT NULL,
   PRIMARY KEY (`porderid`),
@@ -42,7 +41,7 @@ CREATE TABLE `porder` (
 
 LOCK TABLES `porder` WRITE;
 /*!40000 ALTER TABLE `porder` DISABLE KEYS */;
-INSERT INTO `porder` VALUES ('GG230820001','Taipei',1,9,'2023-08-22 01:01:59'),('GG230821001','Taipei',1,11,'2023-08-21 11:06:00');
+INSERT INTO `porder` VALUES ('GG230820001','Taipei',9,'2023-08-20 01:01:59'),('GG230821001','Taipei',11,'2023-08-21 11:06:00');
 /*!40000 ALTER TABLE `porder` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-22 14:53:18
+-- Dump completed on 2023-08-22 15:05:30
