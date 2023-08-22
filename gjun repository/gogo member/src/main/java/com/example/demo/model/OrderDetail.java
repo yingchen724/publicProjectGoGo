@@ -29,11 +29,11 @@ public class OrderDetail {
 	private Porder porder;
 	//private Integer porderid;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JsonIgnoreProperties
-	@JoinColumn(name="productid", referencedColumnName="productid")
-	private Product product;
-	//private Integer productid;
+//	@ManyToOne(cascade=CascadeType.ALL)
+//	@JsonIgnoreProperties
+//	@JoinColumn(name="productid", referencedColumnName="productid")
+//	private Product product;
+	private Integer productid;
 	
 	private Integer quantity;
 	
@@ -47,9 +47,9 @@ public class OrderDetail {
 	}
 	
 	//會員訂購時
-	public OrderDetail(Porder porder, Product product, Integer quantity) {
+	public OrderDetail(Porder porder, Integer productid, Integer quantity) {
 		this.porder = porder;
-		this.product = product;
+		this.productid = productid;
 		this.quantity = quantity;
 	}
 
@@ -69,12 +69,12 @@ public class OrderDetail {
 		this.porder = porder;
 	}
 
-	public Product getProduct() {
-		return product;
+	public Integer getProductid() {
+		return productid;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProductid(Integer productid) {
+		this.productid = productid;
 	}
 
 	public Integer getQuantity() {
@@ -111,7 +111,7 @@ public class OrderDetail {
 
 	@Override
 	public String toString() {
-		return "OrderDetail [id=" + id + ", porder=" + porder + ", product=" + product + ", quantity=" + quantity
+		return "OrderDetail [id=" + id + ", porder=" + porder + ", productid=" + productid + ", quantity=" + quantity
 				+ ", score=" + score + ", message=" + message + ", sdate=" + sdate + "]";
 	}
 	

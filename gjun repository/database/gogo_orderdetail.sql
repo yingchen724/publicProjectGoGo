@@ -18,31 +18,34 @@ USE `gogo`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `member`
+-- Table structure for table `orderdetail`
 --
 
-DROP TABLE IF EXISTS `member`;
+DROP TABLE IF EXISTS `orderdetail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `member` (
+CREATE TABLE `orderdetail` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(50) DEFAULT NULL,
-  `address` varchar(50) DEFAULT NULL,
-  `mobile` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `message` varchar(255) DEFAULT NULL,
+  `productid` int DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `score` int DEFAULT NULL,
+  `sdate` datetime DEFAULT NULL,
+  `porderid` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKt0p4vgetpqd5ak4t8ksbo73uv` (`porderid`),
+  CONSTRAINT `FKt0p4vgetpqd5ak4t8ksbo73uv` FOREIGN KEY (`porderid`) REFERENCES `porder` (`porderid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `member`
+-- Dumping data for table `orderdetail`
 --
 
-LOCK TABLES `member` WRITE;
-/*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (9,'cindy','jerry@gmail.com','c123','kongyuon',3333),(11,'mary','mary@gmail.com','m123','kongyuon',3333),(13,'mary','cindy@gmail.com','m123','kongyuon',3333);
-/*!40000 ALTER TABLE `member` ENABLE KEYS */;
+LOCK TABLES `orderdetail` WRITE;
+/*!40000 ALTER TABLE `orderdetail` DISABLE KEYS */;
+INSERT INTO `orderdetail` VALUES (1,'good',1001,2,4,'2023-08-22 11:07:40','GG230821001'),(2,'so so',1002,1,2,'2023-08-22 11:07:36','GG230821001'),(3,NULL,1001,3,2,'2023-08-22 11:09:12','GG230820001'),(4,NULL,1002,2,NULL,NULL,'GG230820001');
+/*!40000 ALTER TABLE `orderdetail` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

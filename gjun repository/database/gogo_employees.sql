@@ -18,31 +18,29 @@ USE `gogo`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `member`
+-- Table structure for table `employees`
 --
 
-DROP TABLE IF EXISTS `member`;
+DROP TABLE IF EXISTS `employees`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `member` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(50) DEFAULT NULL,
-  `address` varchar(50) DEFAULT NULL,
-  `mobile` int DEFAULT NULL,
+CREATE TABLE `employees` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `password` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `member`
+-- Dumping data for table `employees`
 --
 
-LOCK TABLES `member` WRITE;
-/*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (9,'cindy','jerry@gmail.com','c123','kongyuon',3333),(11,'mary','mary@gmail.com','m123','kongyuon',3333),(13,'mary','cindy@gmail.com','m123','kongyuon',3333);
-/*!40000 ALTER TABLE `member` ENABLE KEYS */;
+LOCK TABLES `employees` WRITE;
+/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` VALUES (1,'1111','Tim','tim@gogo.com'),(2,'1111','Ben','ben@gogo.com'),(3,'1111','Amy','amy@gogo.com'),(4,'1111','Sam','sam@gogo.com');
+/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-22 14:53:18
+-- Dump completed on 2023-08-22 14:53:17
