@@ -1,0 +1,61 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.Member;
+import com.example.demo.model.MemberRepository;
+
+@RestController
+public class MemberController {
+@Autowired
+MemberRepository repo;
+	List<Member> data=null;
+	
+	
+	@PostMapping("/addmember")
+    public ResponseEntity<?> createMember(@RequestBody Member m) {
+    data=repo.findAll();
+    m=data.stream().filter(e->e.getEmail().equals(m.getEmail())).findFirst().orElse(m);
+    if(m==null) {
+    	repo.save(m);
+    	return new ResponseEntity<>(m,HttpStatus.CREATED);
+    }
+    else {
+    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email already exist");
+    }
+    	
+    }
+	
+	@RequestMapping(value="/member",method=RequestMethod.GET)
+	public List<Member> getAllMember(){
+	 return repo.findAll();
+	}
+	
+	
+	
+	@RequestMapping(value = "/{email}",method = RequestMethod.PUT)
+	public ResponseEntity<Member> updateEmployee(@PathVariable("email") String email, @RequestBody Member m) 
+	{
+		 System.out.println("updateemployees email "+email);
+		 System.out.println("employee  "+ m);
+	     data=repo.findAll();
+
+	    Member em=data.stream().filter(e->e.getEmail()==email).findFirst().orElse(null);
+	   
+	    repo.save(em);
+		return null;
+	  
+	  	  
+	}
+	
+}
