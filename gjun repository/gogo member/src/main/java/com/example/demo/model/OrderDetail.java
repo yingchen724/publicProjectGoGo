@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
@@ -23,14 +24,14 @@ public class OrderDetail {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JsonIgnoreProperties
+	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name="porderid", referencedColumnName="porderid")
 	private Porder porder;
 	//private Integer porderid;
 	
 //	@ManyToOne(cascade=CascadeType.ALL)
-//	@JsonIgnoreProperties
+//	@JsonIgnore
 //	@JoinColumn(name="productid", referencedColumnName="productid")
 //	private Product product;
 	private Integer productid;
@@ -111,7 +112,7 @@ public class OrderDetail {
 
 	@Override
 	public String toString() {
-		return "OrderDetail [id=" + id + ", porder=" + porder + ", productid=" + productid + ", quantity=" + quantity
+		return "OrderDetail [id=" + id + ", productid=" + productid + ", quantity=" + quantity
 				+ ", score=" + score + ", message=" + message + ", sdate=" + sdate + "]";
 	}
 	
