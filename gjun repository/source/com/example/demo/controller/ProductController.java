@@ -80,6 +80,7 @@ public class ProductController {
 	  @RequestMapping(value = "/productUpdate", method = RequestMethod.POST)
 		  public ModelAndView processFormUpdate(@ModelAttribute Product p) throws SQLException {
 			  ModelAndView model = new ModelAndView("redirect:/productRetrieveAll");
+			  
 			  productRepo.save(p);             
 			  return model;
 	    }
