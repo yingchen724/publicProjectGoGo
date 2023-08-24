@@ -35,12 +35,12 @@ public class OrderDetailController {
 	
 	//新增訂購細項: 會員訂購商品
 	//修改訂購細項: 後台員工修改訂單內容
-	@PostMapping
-	@ResponseBody
-	public ResponseEntity<OrderDetail> saveDetail(@RequestBody OrderDetail orderDetail) {
-		repository.save(orderDetail);
-		return new ResponseEntity<OrderDetail>(orderDetail,HttpStatus.OK);
-	}
+//	@PostMapping
+//	@ResponseBody
+//	public ResponseEntity<OrderDetail> saveDetail(@RequestBody OrderDetail orderDetail) {
+//		repository.save(orderDetail);
+//		return new ResponseEntity<OrderDetail>(orderDetail,HttpStatus.OK);
+//	}
 	
 	//依id查詢訂購細項: 按"評價"按鈕後，查詢這筆資料
 	@GetMapping("/{id}")

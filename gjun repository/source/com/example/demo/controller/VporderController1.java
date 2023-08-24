@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dao.VporderRepository1;
 import com.example.demo.model.Vporder1;
 
-@CrossOrigin
+@CrossOrigin(origins="http://127.0.0.1:5500/")
 @RestController
 @RequestMapping("/vporder")
 public class VporderController1 {
@@ -20,19 +20,19 @@ public class VporderController1 {
 	private VporderRepository1 repository;
 	
 	//依memberid查詢vporder: 會員顯示訂單資訊
-	@GetMapping("mem/{memberid}")
+	@GetMapping("/mem/{memberid}")
 	public List<Vporder1> getMemberVporder(@PathVariable int memberid) {
 		return repository.findByMemberid(memberid);
 	}
 	
-	//依employeeid查詢vporder: 員工顯示負責的訂單資訊
-	@GetMapping("emp/{employeeidid}")
-	public List<Vporder1> getEmployeeVporder(@PathVariable int employeeidid) {
-		return repository.findByEmployeeid(employeeidid);
-	}
+//	//依employeeid查詢vporder: 員工顯示負責的訂單資訊
+//	@GetMapping("emp/{employeeidid}")
+//	public List<Vporder1> getEmployeeVporder(@PathVariable int employeeidid) {
+//		return repository.findByEmployeeid(employeeidid);
+//	}
 	
 	//查詢所有vporder: 會員顯示訂單資訊、後台顯示訂單管理
-	@GetMapping
+	@GetMapping("/emp")
 	public List<Vporder1> getAll() {
 		return repository.findAll();
 	}

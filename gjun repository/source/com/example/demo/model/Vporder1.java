@@ -11,7 +11,7 @@ import org.hibernate.annotations.Subselect;
 //會員顯示訂單用
 @Entity
 @Immutable
-@Subselect("SELECT det.id, por.porderid, por.memberid, det.productid, det.quantity, por.employeeid, por.orderdate, por.address, det.sdate FROM gogo.porder AS por JOIN gogo.orderdetail AS det ON por.porderid = det.porderid")
+@Subselect("SELECT det.id, por.porderid, por.memberid, det.productid, det.quantity, por.orderdate, por.address, det.sdate FROM gogo.porder AS por JOIN gogo.orderdetail AS det ON por.porderid = det.porderid")
 public class Vporder1 {
 	@Id
 	private Integer id;
@@ -20,11 +20,9 @@ public class Vporder1 {
 
 	private Integer memberid;
 
-	private Integer productid;
+	private String productid;
 
 	private Integer quantity;
-
-	private Integer employeeid;
 
 	private Date orderdate;
 	
@@ -56,11 +54,11 @@ public class Vporder1 {
 		this.memberid = memberid;
 	}
 
-	public Integer getProductid() {
+	public String getProductid() {
 		return productid;
 	}
 
-	public void setProductid(Integer productid) {
+	public void setProductid(String productid) {
 		this.productid = productid;
 	}
 
@@ -70,14 +68,6 @@ public class Vporder1 {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
-	}
-
-	public Integer getEmployeeid() {
-		return employeeid;
-	}
-
-	public void setEmployeeid(Integer employeeid) {
-		this.employeeid = employeeid;
 	}
 
 	public Date getOrderdate() {
@@ -107,7 +97,7 @@ public class Vporder1 {
 	@Override
 	public String toString() {
 		return "Vporder1 [id=" + id + ", porderid=" + porderid + ", memberid=" + memberid + ", productid=" + productid
-				+ ", quantity=" + quantity + ", employeeid=" + employeeid + ", orderdate=" + orderdate + ", address="
+				+ ", quantity=" + quantity + ", orderdate=" + orderdate + ", address="
 				+ address + ", sdate=" + sdate + "]";
 	}
 
