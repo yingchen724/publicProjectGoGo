@@ -1,7 +1,12 @@
 package com.example.demo.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -21,6 +26,9 @@ public class Product {
 	private Integer stock;
 	private String remark;
 	private String path;
+	
+	@OneToMany(mappedBy="porder", cascade=CascadeType.ALL)
+	private Set<OrderDetail> orderDetails = new HashSet<>();
 	
 	public Product() {
 		
@@ -119,6 +127,14 @@ public class Product {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public Set<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(Set<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
 
