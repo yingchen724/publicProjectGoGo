@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>GOGOBUY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="headfoot/headfoot.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        .div2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <header>
+            <img src="headfoot/Group.png" vertical-align:middle;style="position:absolute;left:71px;top:18px;"
+                class="imgpt" />
+            <style>
+                a {
+                    color: #D9C4B6;
+                }
+            </style>
+            <a href="default.html" class="apt">products&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">directions&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">F&A&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">contact</a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/search.png" class="imgpt" /></a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:8px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/shopping-cart.png" style="float:right;" class="imgpt" /></a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/user.png" class="imgpt" /></a>
+        </header>
+        <div class="main">
+
+            <div class="center">
+                <p></p>
+                <div class="container div2">
+                    <div class="div1">
+                        <img src="img/img356.jpg" width="400px" />
+                    </div>
+                    <div class="">
+                        <h3>我是商品名稱</h3><br />
+                        <form id="myForm">
+                            評分:<br />
+                            <input type="hidden" name="score" id="score" value="0" />
+                            <img src="img/starwhite.png" onclick="star1()" width="30px" id="img1" />
+                            <img src="img/starwhite.png" onclick="star2()" width="30px" id="img2" />
+                            <img src="img/starwhite.png" onclick="star3()" width="30px" id="img3" />
+                            <img src="img/starwhite.png" onclick="star4()" width="30px" id="img4" />
+                            <img src="img/starwhite.png" onclick="star5()" width="30px" id="img5" />
+                            <br /><br />
+                            請輸入評論內容:<br />
+                            <textarea cols="40" rows="5" name="message" id="message"
+                                placeholder="(選填)"></textarea><br />
+                            <input type="submit" text="Sent" />
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <footer>
+                </br>
+                <p>&nbsp;&nbsp;&nbsp;contact</p>
+                <p>&nbsp;&nbsp;&nbsp;we are introduced to the narrator, a pilot, and his ideas about grown-ups</br>
+                    &nbsp;&nbsp;&nbsp;Once when I was six years old I saw a magnificent1 picture in a book, called True
+                    Stories from Nature,</br>
+                    &nbsp;&nbsp;&nbsp;about the primeval forest. It was a picture of a boa constrictor in the act of
+                    swallowing an animal. </br>
+                    &nbsp;&nbsp;&nbsp;Here is a copy of the drawing.</p>
+                <img src="headfoot/IG.png" style="position:absolute;left:1050px;top:250px;" />
+                <img src="headfoot/FB.png" style="position:absolute;left:1110px;top:250px;" />
+                <img src="headfoot/line.png" style="position:absolute;left:1170px;top:250px;" />
+
+            </footer>
+        </div>
+
+        <script>
+            var id;
+            //var id = prompt('請輸入訂單細項編號');
+            $(document).ready(function () {
+                $.get({
+                    url: 'http://localhost:8080/porder/sessionOrderdetailid',
+                    type: 'post',
+                    //dataType: 'json',
+                    success: function (data) {
+                        //alert(data);
+                        id = data;
+                        //alert(id);
+                    }
+                });
+            });
+            var star;
+            function star1() {
+                $('#img1').attr('src', "img/staryellow.png");
+                $('#img2').attr('src', "img/starwhite.png");
+                $('#img3').attr('src', "img/starwhite.png");
+                $('#img4').attr('src', "img/starwhite.png");
+                $('#img5').attr('src', "img/starwhite.png");
+                $('#score').val(1);
+            }
+            function star2() {
+                $('#img1').attr('src', "img/staryellow.png");
+                $('#img2').attr('src', "img/staryellow.png");
+                $('#img3').attr('src', "img/starwhite.png");
+                $('#img4').attr('src', "img/starwhite.png");
+                $('#img5').attr('src', "img/starwhite.png");
+                $('#score').val(2);
+            }
+            function star3() {
+                $('#img1').attr('src', "img/staryellow.png");
+                $('#img2').attr('src', "img/staryellow.png");
+                $('#img3').attr('src', "img/staryellow.png");
+                $('#img4').attr('src', "img/starwhite.png");
+                $('#img5').attr('src', "img/starwhite.png");
+                $('#score').val(3);
+            }
+            function star4() {
+                $('#img1').attr('src', "img/staryellow.png");
+                $('#img2').attr('src', "img/staryellow.png");
+                $('#img3').attr('src', "img/staryellow.png");
+                $('#img4').attr('src', "img/staryellow.png");
+                $('#img5').attr('src', "img/starwhite.png");
+                $('#score').val(4);
+            }
+            function star5() {
+                $('#img1').attr('src', "img/staryellow.png");
+                $('#img2').attr('src', "img/staryellow.png");
+                $('#img3').attr('src', "img/staryellow.png");
+                $('#img4').attr('src', "img/staryellow.png");
+                $('#img5').attr('src', "img/staryellow.png");
+                $('#score').val(5);
+            }
+
+            $('#myForm').submit(function (evt) {
+                evt.preventDefault();
+                if ($('#score').val() == 0) {
+                    alert('請選擇評分!');
+                    return;
+                }
+                var orderDetail = {};
+                orderDetail.score = $('#score').val();
+                orderDetail.message = $('#message').val();
+                $.ajax({
+                    url: "http://localhost:8080/odetail/" + id,
+                    type: "put",
+                    data: JSON.stringify(orderDetail),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (data) {
+                        alert('已新增評論!');
+                        location.href = "memberAllPorderDetail.html";
+                    }, error: function () {
+                        alert('error!');
+                        location.href = "memberAllPorderDetail.html";
+                    }
+                });
+            });
+        </script>
+
+</body>
+
+</html>
