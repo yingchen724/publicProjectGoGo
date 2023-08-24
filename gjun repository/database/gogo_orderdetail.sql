@@ -27,15 +27,17 @@ DROP TABLE IF EXISTS `orderdetail`;
 CREATE TABLE `orderdetail` (
   `id` int NOT NULL AUTO_INCREMENT,
   `message` varchar(255) DEFAULT NULL,
-  `productid` int DEFAULT NULL,
+  `productid` varchar(45) DEFAULT NULL,
   `quantity` int DEFAULT NULL,
   `score` int DEFAULT NULL,
   `sdate` datetime DEFAULT NULL,
   `porderid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKt0p4vgetpqd5ak4t8ksbo73uv` (`porderid`),
+  KEY `FKnj3aqevednxylkji40nl3kb61_idx` (`productid`),
+  CONSTRAINT `FKnj3aqevednxylkji40nl3kb61` FOREIGN KEY (`productid`) REFERENCES `product` (`productid`),
   CONSTRAINT `FKt0p4vgetpqd5ak4t8ksbo73uv` FOREIGN KEY (`porderid`) REFERENCES `porder` (`porderid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +46,7 @@ CREATE TABLE `orderdetail` (
 
 LOCK TABLES `orderdetail` WRITE;
 /*!40000 ALTER TABLE `orderdetail` DISABLE KEYS */;
-INSERT INTO `orderdetail` VALUES (1,'good',1001,2,4,'2023-08-22 11:07:40','GG230821001'),(2,'so so',1002,1,2,'2023-08-22 11:07:36','GG230821001'),(3,NULL,1001,3,2,'2023-08-22 11:09:12','GG230820001'),(4,NULL,1002,2,NULL,NULL,'GG230820001');
+INSERT INTO `orderdetail` VALUES (5,NULL,'gogop2308210001',1,NULL,NULL,'GG230820001'),(6,'i dont like this color','gogop2308210001',3,5,'2023-08-25 00:07:31','GG230821001'),(7,'','gogop2308210004',2,3,'2023-08-25 00:12:56','GG230821001'),(10,NULL,'gogop2308210001',1,NULL,NULL,'GG230824001');
 /*!40000 ALTER TABLE `orderdetail` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-22 14:53:18
+-- Dump completed on 2023-08-25  0:21:29
