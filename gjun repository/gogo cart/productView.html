@@ -44,15 +44,14 @@
         var table = $("table");
         var rowTemplate = $("#product-row-template");
 
-        data.forEach((product, index) => {
-          var newRow = rowTemplate.clone().removeAttr("id").show();
-          newRow.find(".image img").attr("src", product.path);
-          newRow.find(".description").text(product.description);
-          newRow.find(".price").text(product.price);
-         /*  newRow.find(".productname").text(product.productname); */
-          newRow.find(".action a").attr("href", 'cart/buy/' + product.productid);
+        data.forEach(product => {
+          var row = rowTemplate.clone().removeAttr("id").show();
+          row.find(".image img").attr("src", product.path);
+          row.find(".description").text(product.description);
+          row.find(".price").text(product.price);
+          row.find(".action a").attr("href", 'cart/buy/' + product.productid);
 
-          table.append(newRow);
+          table.append(row);
         });
       },
       error: function (myerror) {

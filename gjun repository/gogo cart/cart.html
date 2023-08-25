@@ -1,8 +1,12 @@
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cart Page</title>
 <meta charset="UTF-8">
+<title>Cart Page</title>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <script
@@ -15,38 +19,55 @@
 </head>
 <body>
 	<h1>Shopping Cart</h1>
-	<div id="cartItems"></div>
-	<a href="addPorder.html">確認傳送</a>
+	<table border='1' width='50%' id="cartTable">
+		<thead>
+			<tr>
+				<th>Productname</th>
+				<th>Picture</th>
+				<th>Quantity</th>
+				<th>Price</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr id="cart-row-template" style="display: none;">
+				<td class="description"></td>
+				<td class="picture"><img src="" width="50"></td>
+				<td class="quantity"><input type="number" value="" id="num"></td>
+				<td class="price"></td>
+				<td class="action"><a href="/cart/remove/"
+					onclick="return confirm('確認刪除')" class='btn btn-danger'>刪除</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<a href="productView.html" class="btn btn-success">回上一頁</a>
+	<a href="addPorder.html" class="btn btn-secondary">確認購物</a>
 </body>
 </html>
 <script>
-  function result(data) {
-    var Table = "<table border='1' width='50%'>";
-    Table +=
-    	"<thead><tr><th>名稱</th><th>圖片</th><th>數量</th><th>價格</th><th>操作</th></tr></thead>";
-    data.forEach(item => {
-    	 Table += "<tr><td>" + item.product.description + "</td>";
-         Table +=  "<td><img src="+ item.product.path + " width='50'></td>";
-    	 Table += "<td><input type='number' value="+item.quantity + " id='num'></td>";
-         Table += "<td>" + item.product.price + "</td>";
-         Table += "<td><a href='/cart/remove/" + item.product.productid + "' onclick=\"return confirm('確認刪除？')\" class='btn btn-danger'>刪除</a></tr>";
-         
-        
-    });
-    Table += "</table>";
-
-    $("#cartItems").html(Table);
-  }
   $(document).ready(function () {
     $.ajax({
       url: "/cart/getAll",
       type: "GET",
       dataType: "json",
-      success: result,
+      success: function(data) {
+          var table = $("table");
+          var rowTemplate = $("#cart-row-template");
+        data.forEach(item => {
+          var row = rowTemplate.clone().removeAttr("id").show();
+          row.find(".description").text(item.product.description);
+          row.find(".picture img").attr("src", item.product.path);
+          row.find(".quantity input").val(item.quantity);
+          row.find(".price").text(item.product.price);
+          row.find(".action a").attr("href", '/cart/remove/' + item.product.productid);
+
+          table.append(row);
+        });
+
+      },
       error: function (myerror) {
         console.log(myerror);
       },
     });
   });
-
 </script>
