@@ -1,73 +1,102 @@
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Cart Page</title>
 
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
 </head>
 <body>
-	<h1>Shopping Cart</h1>
-	<table border='1' width='50%' id="cartTable">
+	<caption>
+		<h2 align="center">我的購物車</h2>
+	</caption>
+	<table border="1" width="50%" id="cartTable" align="center"
+		cellspacing="0">
 		<thead>
 			<tr>
-				<th>Productname</th>
-				<th>Picture</th>
-				<th>Quantity</th>
-				<th>Price</th>
-				<th>Action</th>
+				<th><input type="checkbox" class="all">全選</th>
+				<th>名稱</th>
+				<th>照片</th>
+				<th>數量</th>
+				<th>價格</th>
+				<th>小計</th>
+				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr id="cart-row-template" style="display: none;">
+			<tr id="cart-row-template" style="display: none" class="sp">
+				<td><input type="checkbox" name="sort" align="center"></td>
 				<td class="description"></td>
-				<td class="picture"><img src="" width="50"></td>
-				<td class="quantity"><input type="number" value="" id="num"></td>
+				<td class="picture"><img src="" width="50" /></td>
+				<td class="quantity"><input type="number" mix="1" max="100"/></td>
 				<td class="price"></td>
+				<td class="mtotal"></td>
 				<td class="action"><a href="/cart/remove/"
-					onclick="return confirm('確認刪除')" class='btn btn-danger'>刪除</a></td>
+					onclick="return confirm('確認刪除')" class="btn btn-danger">刪除</a></td>
 			</tr>
 		</tbody>
+		<tr>
+			<td colspan="6" align="right">總價：<span class="total"></span></td>
+		</tr>
 	</table>
-	<a href="productView.html" class="btn btn-success">回上一頁</a>
-	<a href="addPorder.html" class="btn btn-secondary">確認購物</a>
+	<div align="center">
+		<a href="productView.html" class="btn btn-success">回上一頁</a> <a
+			href="addPorder.html" class="btn btn-secondary">確認購物</a>
+	</div>
 </body>
 </html>
+
 <script>
+
   $(document).ready(function () {
     $.ajax({
       url: "/cart/getAll",
       type: "GET",
       dataType: "json",
-      success: function(data) {
-          var table = $("table");
-          var rowTemplate = $("#cart-row-template");
-        data.forEach(item => {
+      success: function (data) {
+        var table = $("table");
+        var rowTemplate = $("#cart-row-template");
+        data.forEach((item,index) => {
           var row = rowTemplate.clone().removeAttr("id").show();
           row.find(".description").text(item.product.description);
           row.find(".picture img").attr("src", item.product.path);
           row.find(".quantity input").val(item.quantity);
           row.find(".price").text(item.product.price);
-          row.find(".action a").attr("href", '/cart/remove/' + item.product.productid);
+          row.find(".mtotal").text(item.product.price *item.quantity);
+          row
+            .find(".action a")
+            .attr("href", "/cart/remove/" + item.product.productid);
 
           table.append(row);
         });
-
       },
       error: function (myerror) {
         console.log(myerror);
       },
     });
-  });
+ }); 
+  
+ 
+//全選項目
+$(".all").click(function(){
+    if($(".all").prop("checked")){//如果全選按鈕有被選擇的話（被選擇是true）
+    $("input[name='sort']").prop("checked",true);//把所有的核取方框的變成勾選
+   }else{
+    $("input[name='sort']").prop("checked",false);//把所有的核取方框都取消勾選
+   }
+ })
+ 
+ 
+ 
+$(function(){
+	  
+	
+});
 </script>
