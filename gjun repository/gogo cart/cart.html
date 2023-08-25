@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cart Page</title>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<h1>Shopping Cart</h1>
+	<div id="cartItems"></div>
+	<a href="addPorder.html">確認傳送</a>
+</body>
+</html>
+<script>
+  function result(data) {
+    var Table = "<table border='1' width='50%'>";
+    Table +=
+    	"<thead><tr><th>名稱</th><th>圖片</th><th>數量</th><th>價格</th><th>操作</th></tr></thead>";
+    data.forEach(item => {
+    	 Table += "<tr><td>" + item.product.description + "</td>";
+         Table +=  "<td><img src="+ item.product.path + " width='50'></td>";
+    	 Table += "<td><input type='number' value="+item.quantity + " id='num'></td>";
+         Table += "<td>" + item.product.price + "</td>";
+         Table += "<td><a href='/cart/remove/" + item.product.productid + "' onclick=\"return confirm('確認刪除？')\" class='btn btn-danger'>刪除</a></tr>";
+         
+        
+    });
+    Table += "</table>";
+
+    $("#cartItems").html(Table);
+  }
+  $(document).ready(function () {
+    $.ajax({
+      url: "/cart/getAll",
+      type: "GET",
+      dataType: "json",
+      success: result,
+      error: function (myerror) {
+        console.log(myerror);
+      },
+    });
+  });
+
+</script>
