@@ -83,7 +83,7 @@
                     type: "get",
                     success: function (data) {
                         var msg = "<table border='1' class='table'><tr><th>序號</th><th>訂單編號</th>" +
-                            "<th>會員編號</th><th>商品編號</th><th>購買數量</th><th>總金額</th><th>訂購時間</th>" +
+                            "<th>會員編號</th><th>商品編號</th><th>購買數量</th>"+/*<th>總金額</th>*/"<th>訂購時間</th>" +
                             "<th>寄送地址</th><th>評分日期</th></tr>";
                         var date;
                         data.forEach(row => {
@@ -92,7 +92,7 @@
                             msg += "<td>" + row.memberid + "</td>";
                             msg += "<td>" + row.productid + "</td>";
                             msg += "<td>" + row.quantity + "</td>";
-                            msg += "<td>" + "(我是總金額)" + "</td>";
+                            //msg += "<td>" + "(我是總金額)" + "</td>";
                             // 創建一個Date物件
                             date = new Date(row.orderdate);
                             // 格式化日期

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>GOGOBUY</title>
@@ -12,17 +13,23 @@
     <style>
         .wrap {
             display: flex;
+            margin: 0 auto;
+            /* background-color: pink; */
         }
 
         .cleft {
             background-color: white;
             width: 55%;
+            padding: 40px;
         }
 
         .cright {
             background-color: #D9C4B6;
             width: 45%;
-            padding: 20px;
+            /* padding: 60px; */
+            padding: 40px;
+            margin: 20px;
+            border-radius: 40px;
         }
 
         .table1 {
@@ -31,6 +38,7 @@
 
         .up {
             padding: 20px;
+            /* margin: 0 auto; */
         }
 
         .label1 {
@@ -43,11 +51,40 @@
 
         .color-main {
             color: #223555;
+            /* text-decoration: underline; */
+            border-bottom: groove lightgray;
+            display: inline;
+            /* padding-bottom: 20px; */
         }
 
         .bgcolor-main {
             background-color: #223555;
             color: white
+        }
+
+        #div1 {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: groove;
+        }
+        #div3 {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-top: groove;
+            border-bottom: groove;
+        }
+        #div2 {
+            display: flex;
+            justify-content: space-between;
+            /* padding: 5px; */
+            padding-top: 10px;
+            padding-right: 10px;
+            padding-bottom: 10px;
+            padding-left: 20px;
+            /* padding: 10px 20px; */
+            /* border-bottom: groove; */
         }
     </style>
 </head>
@@ -55,66 +92,61 @@
 <body>
     <div>
         <header>
-            <img src="headfoot/Group.png" vertical-align:middle;style="position:absolute;left:71px;top:18px;"class="imgpt"/>
+            <img src="headfoot/Group.png" vertical-align:middle;style="position:absolute;left:71px;top:18px;"
+                class="imgpt" />
             <style>
-                a {color:#D9C4B6;}
-                </style>
-            <a href="default.html"class="apt">products&nbsp;&nbsp;&nbsp;</a>
-            <a href="default.html"class="apt">directions&nbsp;&nbsp;&nbsp;</a>
-            <a href="default.html"class="apt">F&A&nbsp;&nbsp;&nbsp;</a>
-            <a href="default.html"class="apt">contact</a>
-            <a href="default.html"class="apt" style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
-              <img src="headfoot/search.png"class="imgpt"/></a>
-            <a href="default.html"class="apt"style="position:relative;left:500px;top:8px">&nbsp;&nbsp;&nbsp;&nbsp;
-              <img src="headfoot/shopping-cart.png"style="float:right;"class="imgpt" /></a>
-            <a href="default.html"class="apt"style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
-              <img src="headfoot/user.png" class="imgpt"/></a>
+                a {
+                    color: #D9C4B6;
+                }
+            </style>
+            <a href="default.html" class="apt">products&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">directions&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">F&A&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">contact</a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/search.png" class="imgpt" /></a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:8px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/shopping-cart.png" style="float:right;" class="imgpt" /></a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/user.png" class="imgpt" /></a>
         </header>
         <div class="main">
 
-          <div class="center">
+            <div class="center">
                 <div class="wrap container">
                     <div class="cright">
+
                         <h3 class="color-main">訂單內容</h3>
-                        <table width="70%" class="table2">
-                            <tr>
-                                <td width="35%" rowspan="2"><img src="img/img356.jpg" alt="" width="100%"></td>
-                                <td width="55%">(產品名字)<input type="hidden" name="productid1" id="productid1" value="1001"/></td>
-                            </tr>
-                            <tr>
-                                <td>$單價 x <span id="quantity1" >2</span></td>
-                            </tr>
-                        </table>
-                        <table border="1" width="70%" class="table2">
-                            <tr>
-                                <td width="35%" rowspan="2"><img src="img/img356.jpg" alt="" width="100%"></td>
-                                <td width="55%">(產品名字)<input type="hidden" name="productid2" id="productid2" value="1002"/></td>
-                            </tr>
-                            <tr>
-                                <td>$單價 x <span id="quantity2" >1</span></td>
-                            </tr>
-                        </table>
+                        <p></p>
+                        <div class="display">
+                            <div id="div1">
+                                <span><b>商品</b></span><span><b>小計</b></span>
+                            </div>
+                            
+                        </div>
                     </div>
                     <div class="cleft">
                         <div class="up">
-                            <h3 class="color-main">聯絡資訊</h3>
+                            <h3 class="color-main">聯絡資訊</h3><br />
+                            <p></p>
                             <table class="table1" width="70%">
                                 <tr>
-                                    <td width="30%">訂購人姓名</td>
-                                    <td width="70%"><input type="text" id="name" style="width:'100%'" /></td>
+                                    <td>訂購人姓名</td>
+                                    <td id="name"></td>
                                 </tr>
                                 <tr>
                                     <td>行動電話</td>
-                                    <td><input type="text" id="mobile" /></td>
+                                    <td id="mobile"></td>
                                 </tr>
                                 <tr>
                                     <td>聯絡信箱</td>
-                                    <td><input type="text" id="email" /></td>
+                                    <td id="email"></td>
                                 </tr>
                             </table>
                         </div>
                         <div class="up">
-                            <h3 class="color-main">運送地址</h3>
+                            <h3 class="color-main">運送地址</h3><br />
+                            <p></p>
                             <table class="table1" width="70%">
                                 <tr>
                                     <td width="30%">寄件地址</td>
@@ -124,106 +156,91 @@
                             </table>
                         </div>
                         <div class="up">
-                            <h3 class="color-main">付款方式</h3>
+                            <h3 class="color-main">付款方式</h3><br />
+                            <p></p>
                             <label class="label1"><input type="radio" name="payment" value="貨到付款" checked> 貨到付款</label>
                             <label class="label1"><input type="radio" name="payment" value="LINE PAY"> LINE PAY</label>
                             <label class="label1"><input type="radio" name="payment" value="信用卡"> 信用卡</label>
                         </div>
                         <div>
-                            <button style="margin-left:30%" class="btn btn-primary bgcolor-main" onclick="buy()">確認</button>
+                            <button style="margin-left:30%" class="btn btn-primary bgcolor-main"
+                                onclick="buy()">確認</button>
                         </div>
-
-
-
-
                     </div>
-
-
                 </div>
-
             </div>
 
-        <footer>
-          </br>
-          <p>&nbsp;&nbsp;&nbsp;contact</p>
-          <p>&nbsp;&nbsp;&nbsp;we are introduced to the narrator, a pilot, and his ideas about grown-ups</br>
-          &nbsp;&nbsp;&nbsp;Once when I was six years old I saw a magnificent1 picture in a book, called True Stories from Nature,</br>
-          &nbsp;&nbsp;&nbsp;about the primeval forest. It was a picture of a boa constrictor in the act of swallowing an animal. </br>
-          &nbsp;&nbsp;&nbsp;Here is a copy of the drawing.</p> 
-          <img src="headfoot/IG.png"style="position:absolute;left:1050px;top:250px;"/>
-          <img src="headfoot/FB.png"style="position:absolute;left:1110px;top:250px;"/>
-          <img src="headfoot/line.png"style="position:absolute;left:1170px;top:250px;"/>
+            <footer>
+                </br>
+                <p>&nbsp;&nbsp;&nbsp;contact</p>
+                <p>&nbsp;&nbsp;&nbsp;we are introduced to the narrator, a pilot, and his ideas about grown-ups</br>
+                    &nbsp;&nbsp;&nbsp;Once when I was six years old I saw a magnificent1 picture in a book, called True
+                    Stories from Nature,</br>
+                    &nbsp;&nbsp;&nbsp;about the primeval forest. It was a picture of a boa constrictor in the act of
+                    swallowing an animal. </br>
+                    &nbsp;&nbsp;&nbsp;Here is a copy of the drawing.</p>
+                <img src="headfoot/IG.png" style="position:absolute;left:1050px;top:250px;" />
+                <img src="headfoot/FB.png" style="position:absolute;left:1110px;top:250px;" />
+                <img src="headfoot/line.png" style="position:absolute;left:1170px;top:250px;" />
 
-        </footer>
-      </div>
+            </footer>
+        </div>
 
         <script>
-            var id;
             $(document).ready(function () {
-                $.get({
+                //get session member
+                $.ajax({
                     url: 'http://localhost:8080/porder/sessionMember',
                     type: 'post',
                     dataType: 'json',
+                    //data代表Menber物件
                     success: function (data) {
-                        //alert(data);
-                        id = data.id;
-                        //alert(id);
-                        test();
+                        $('#name').text(data.name);
+                        $('#mobile').text(data.mobile);
+                        $('#address').val(data.address);
+                        $('#email').text(data.email);
                     }
                 });
 
-            })
-
-            function test() {
-                //顯示今天日期
-                var date = new Date();
-                var dateFormat = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-                var formattedDate = dateFormat.format(date);
-                $('#orderdate').text(formattedDate);
-
-                //讀取member資料
-                $.get({
-                    url: "http://localhost:8080/porder/sessionMember",
-                    type: 'post',
-                    dataType: "json",
-                    success: function (data) {
-                        $('#name').val(data.name);
-                        $('#mobile').val(data.mobile);
-                        $('#address').val(data.address);
-                        $('#email').val(data.email);
-                    }
-                })
-            }
-
-            //購買(新增訂單、細項)
-            function buy() {
-                var porder = {};
-                porder.address = $('#address').val();
-                var orderDetails = [];
-                var od1 = {};
-                od1.productid = $('#productid1').val();
-                od1.quantity = $('#quantity1').text();
-                orderDetails.push(od1);
-                var od2 = {};
-                od2.productid = $('#productid2').val();
-                od2.quantity = $('#quantity2').text();
-                orderDetails.push(od2);
-                porder.orderDetails = orderDetails;
-
+                //get session shoppingcart
+                var total = 0;
                 $.ajax({
-                    url: "http://localhost:8080/porder/" + id,
+                    url: "http://localhost:8080/porder/sessionCart",
                     type: "post",
-                    data: JSON.stringify(porder),
-                    contentType: "application/json",
+                    dataType: 'json',
+                    //data是List<Item>
+                    success: function (data) {
+                        data.forEach(item => {
+                            $('.display').append('<div id="div2">'
+                                +'<span>'+item.product.description+' x'+item.quantity
+                                +'</span><span>$'+(item.product.price*item.quantity)
+                                + '</span></div>');
+                            total += (item.product.price*item.quantity);
+                        });
+                        $('.display').append('<div id="div3"><span><b>總計</b></span><span><b>$'+total+'</b></span></div>');
+                        
+                    }, error: function () {
+                        alert('失敗1');
+                    }
+                });
+
+            });
+
+            //save porder & orderdetail
+            function buy() {
+                var address = $('#address').val();
+                $.ajax({
+                    url: "http://localhost:8080/porder/savePorder/" + address,
+                    type: "post",
                     dataType: 'json',
                     success: function (data) {
                         alert('新增成功');
+                        alert('跳轉到首頁');
                     }, error: function () {
-                        alert('失敗');
+                        alert('新增失敗');
                     }
                 });
             }
-
 
         </script>
 </body>

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -30,6 +31,8 @@ import com.example.demo.model.MemberRepository;
 import com.example.demo.model.OrderDetail;
 import com.example.demo.model.Porder;
 import com.example.demo.model.Product;
+import com.example.demo.model.ProductRepository;
+import com.example.demo.model.Item;
 import com.example.demo.model.Member;
 
 @CrossOrigin
@@ -38,39 +41,47 @@ import com.example.demo.model.Member;
 public class PorderController {
 	@Autowired
 	private PorderRepository repository;
-	
+
 	@Autowired
 	private MemberRepository memberRepo;
-	
-	@Autowired
-	private PorderRepository porderRepo;
-	
+
+//	@Autowired
+//	private PorderRepository porderRepo;
+
 	@Autowired
 	private OrderDetailRepository detRepo;
+	
+	@Autowired
+	private ProductRepository productRepo;
 
-	//查詢所有訂購單: 後台查詢用
+	// 查詢所有訂購單: 後台查詢用
 	@GetMapping
 	public List<Porder> getAll() {
 		return repository.findAll();
 	}
-	
-	//依memberid查詢訂單: 前台會員查詢用
+
+	// 依memberid查詢訂單: 前台會員查詢用
 	@GetMapping("/{memberid}")
 	public List<Porder> getByMember(@PathVariable Integer memberid) {
-		return repository.findAll().stream().filter(porder->porder.getMember().getId()==memberid)
+		return repository.findAll().stream().filter(porder -> porder.getMember().getId() == memberid)
 				.collect(Collectors.toList());
 	}
-	
-	//新增訂購單: 會員訂購商品 (要有memberid、address、orderDetail
-	@PostMapping("/{memberid}")
-	public ResponseEntity<Porder> savePorder(@PathVariable int memberid,
-			@RequestBody Porder porder) {
-		Member m = memberRepo.findById(memberid).get();
+
+	// 新增訂購單: 會員訂購商品 (要有address)
+	@PostMapping("/savePorder/{address}")
+	public ResponseEntity<Porder> savePorder(HttpSession session,
+			@PathVariable("address") String address) {
+		Porder porder = new Porder();
+		//set address
+		porder.setAddress(address);
+		//set Member
+		String email = (String) session.getAttribute("attrEmail");
+		Member m = memberRepo.findByEmail(email);
 		porder.setMember(m);
-		System.out.println("porder:"+porder);
+		//set orderdate
 		Date orderdate = new Date();
 		porder.setOrderdate(orderdate);
-		System.out.println("porder:"+porder);
+		//set porderid
 		String temp = "GG" + Method.formatDate(orderdate.getYear() % 100) + Method.formatDate(orderdate.getMonth() + 1)
 				+ Method.formatDate(orderdate.getDate());
 		// 找下一個porder
@@ -80,78 +91,84 @@ public class PorderController {
 				break;
 			}
 		}
-		for(OrderDetail det:porder.getOrderDetails()) {
+		//set orderDetails
+		Set<OrderDetail> details = new HashSet<>();
+		List<Item> cart = (List<Item>) session.getAttribute("cart");
+		for(Item item:cart) {
+			OrderDetail detail = new OrderDetail();
+			//update product sales & stock
+			Product p = productRepo.findById(item.getProduct().getProductid()).get();
+			p.setSales(p.getSales()+item.getQuantity());
+			p.setStock(p.getStock()-item.getQuantity());
+			productRepo.save(p);
+			detail.setProduct(item.getProduct());
+			detail.setQuantity(item.getQuantity());
+			details.add(detail);
+		}
+		porder.setOrderDetails(details);
+		//每個detail設定Porder
+		for (OrderDetail det : porder.getOrderDetails()) {
 			det.setPorder(porder);
 		}
 		repository.save(porder);
-		return new ResponseEntity<Porder>(porder,HttpStatus.OK);
+		return new ResponseEntity<Porder>(porder, HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 //	@GetMapping("/comm/{orderdetailid}")
 //	public String home2() {
 //		return "comment.html";
 //		//session.setAttribute("id", orderdetailid);
 //		
 //	}
-	
-	//Session中存orderDetail的id: 轉給新增評論頁面
+
+	// Session中存orderDetail的id: 轉給新增評論頁面
 	@PostMapping("/setSessionDid/{id}")
-	public void home2(HttpSession session,@PathVariable("id") int id) {
+	public void home2(HttpSession session, @PathVariable("id") int id) {
 		System.out.println(id);
 		session.setAttribute("id", id);
 		System.out.println(session.getAttribute("id"));
 	}
-	
-	
-	//讀取Session中的orderDetail的id: 新增評論頁面讀取用
-	@PostMapping("/sessionOrderdetailid")
-	public int getOrderdetailid(HttpSession session) {
-		return (Integer)session.getAttribute("id");
-	}
-	
-	//讀取Session中的cart: 結帳頁面使用
-//	@PostMapping("/sessionChart")
-//	public int getChart(HttpSession session) {
-//		return (List<Item>) session.getAttribute("chart");
+
+	// 讀取Session中的orderDetail的id: 新增評論頁面讀取用
+//	@PostMapping("/sessionOrderdetailid")
+//	public int getOrderdetailid(HttpSession session) {
+//		return (Integer)session.getAttribute("id");
 //	}
-	
-	//依memberid查Member物件
+
+	// 讀取Session中的cart: 結帳頁面使用
+	@PostMapping("/sessionCart")
+	public List<Item> getChart(HttpSession session) {
+		return (List<Item>) session.getAttribute("cart");
+	}
+
+	// 依memberid查Member物件
 //	@GetMapping("/address/{memberid}")
 //	public Member findAdressByMemberid(@PathVariable int memberid) {
 //		return memberRepo.findById(memberid).get();
 //	}
-	
-	//抓Session中的Member物件回傳
+
+	// 抓Session中的Member物件回傳
 	@PostMapping("/sessionMember")
 	@ResponseBody
 	public Member getMember(HttpSession session) {
-		String email = (String)session.getAttribute("email");
+		String email = (String) session.getAttribute("attrEmail");
 		return memberRepo.findByEmail(email);
 	}
-	
-	//回傳訂單總金額
+
+	// 回傳訂單總金額
 //	@GetMapping("/allamount/{porderid}")
 //	public int findAdressByMemberid(@PathVariable String porderid) {
 //		return repository.findByPorderid(porderid).
 //	}
-	
-	//修改訂單: 後台修改用
-	@RequestMapping(value="/update", method=RequestMethod.PUT)
-	public ResponseEntity<Porder> updatePorder(HttpSession session, 
-			@RequestBody Porder porder) {
+
+	// 修改訂單: 後台修改用
+	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	public ResponseEntity<Porder> updatePorder(HttpSession session, @RequestBody Porder porder) {
 		repository.save(porder);
-		return new ResponseEntity<Porder>(porder,HttpStatus.OK);
+		return new ResponseEntity<Porder>(porder, HttpStatus.OK);
 	}
-	
-	//刪除訂單: 後台刪除用(會連帶對應的orderDetails一起刪)
+
+	// 刪除訂單: 後台刪除用(會連帶對應的orderDetails一起刪)
 	@GetMapping("/delete/{porderid}")
 	public void deletePorder(@PathVariable String porderid) {
 		System.out.println(porderid);
@@ -159,17 +176,17 @@ public class PorderController {
 		System.out.println(p);
 		repository.delete(p);
 	}
-	
-	//依orderDetail物件查詢Product物件
+
+	// 依orderDetail物件查詢Product物件
 	@PostMapping("/getProduct")
 	public Product getPorder(@RequestBody OrderDetail detail) {
 		OrderDetail detail1 = detRepo.findById(detail.getId()).get();
 		return detail1.getProduct();
-	} 
-	
-	@GetMapping("/test")
-	public int getget() {
-		return 10000;
 	}
+
+//	@GetMapping("/test")
+//	public int getget() {
+//		return 10000;
+//	}
 
 }
