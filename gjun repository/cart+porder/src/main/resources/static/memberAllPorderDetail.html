@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>GOGOBUY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="headfoot/headfoot.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        .td-center td {
+            vertical-align: middle;
+        }
+
+        .td-center tbody tr:hover {
+            background-color: lightgray;
+        }
+
+        .bgcolor-main {
+            background-color: #D9C4B6;
+        }
+
+        .center {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <header>
+            <img src="headfoot/Group.png" vertical-align:middle;style="position:absolute;left:71px;top:18px;"
+                class="imgpt" />
+            <style>
+                a {
+                    color: #D9C4B6;
+                }
+            </style>
+            <a href="default.html" class="apt">products&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">directions&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">F&A&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">contact</a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/search.png" class="imgpt" /></a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:8px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/shopping-cart.png" style="float:right;" class="imgpt" /></a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/user.png" class="imgpt" /></a>
+        </header>
+        <div class="main">
+
+            <div class="center">
+                <div class="container">
+                    <br />
+                    <div id="display1"></div>
+                </div>
+            </div>
+
+            <footer>
+                </br>
+                <p>&nbsp;&nbsp;&nbsp;contact</p>
+                <p>&nbsp;&nbsp;&nbsp;we are introduced to the narrator, a pilot, and his ideas about grown-ups</br>
+                    &nbsp;&nbsp;&nbsp;Once when I was six years old I saw a magnificent1 picture in a book, called True
+                    Stories from Nature,</br>
+                    &nbsp;&nbsp;&nbsp;about the primeval forest. It was a picture of a boa constrictor in the act of
+                    swallowing an animal. </br>
+                    &nbsp;&nbsp;&nbsp;Here is a copy of the drawing.</p>
+                <img src="headfoot/IG.png" style="position:absolute;left:1050px;top:250px;" />
+                <img src="headfoot/FB.png" style="position:absolute;left:1110px;top:250px;" />
+                <img src="headfoot/line.png" style="position:absolute;left:1170px;top:250px;" />
+
+            </footer>
+        </div>
+
+
+        <script>
+            var id;
+
+            // 定義日期格式
+            var dateFormat = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+            $(document).ready(function () {
+                var windowHeight = window.innerHeight;
+                var headerHeight = $("header").outerHeight();
+                var footerHeight = $("footer").outerHeight();
+                var minContainerHeight = windowHeight - headerHeight - footerHeight;
+                //alert('windowHeight:' + windowHeight + '  headerHeight:' + headerHeight + '  footerHeight:' + footerHeight + '  minContainerHeight:' + minContainerHeight);
+                $('.center').css('min-height', minContainerHeight);
+
+                $.ajax({
+                    url: 'http://localhost:8080/porder/sessionMember',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        //alert(data);
+                        id = data.id;
+                        //alert(id);
+                        test();
+                    }
+                });
+                var date;
+            });
+
+            var msg;
+            var total;
+
+            function test() {
+                $.ajax({
+                    url: "http://localhost:8080/porder/" + id,
+                    type: "get",
+                    dataType: 'json',
+                    //async: false,
+                    //data代表List<Porder>
+                    success: function (data) {
+                        //console.log(data);
+                        //console.log(typeof data);
+                        if (data.length == 0) {
+                            $('#display1').html("還沒有訂單喔~");
+                            return;
+                        }
+                        msg = "";
+                        //total = 0;
+                        //console.log("data: " + typeof data);
+                        var totalarr = [];
+                        // var pindex = 0;
+                        data.forEach((porder,index) => {
+                            // pindex += 1;
+
+
+                            total = 0;
+                            // 創建一個Date物件
+                            date = new Date(porder.orderdate);
+                            // 格式化日期
+                            var formattedDate = dateFormat.format(date);
+                            msg += "訂單編號: " + porder.porderid
+                                + "<br/>訂購時間: " + formattedDate
+                                // + "<br/>總金額: $<span id='span" + pindex + "'></span>"
+                                + "<br/>總金額: $<span id='span" + (index+1) + "'></span>"
+                                + "<br/>寄送地址: " + porder.address
+                                + "<table border='1' class='table td-center'><thead><tr class='bgcolor-main'>"
+                                + "<th width='140px'>商品照片</th><th width='250px'>商品名稱</th><th width='140px'>單價</th>"
+                                + "<th width='140px'>購買數量</th><th width='140px'>小計</th><th width='180px'>評分</th></tr></thead><tbody>";
+                            //console.log("porder.orderDetails: " + typeof porder.orderDetails);
+
+                            porder.orderDetails.forEach(detail => {
+
+                                msg += "<tr onclick='trbtn(" + 5 + ")'><td>";
+
+                                $.ajax({
+                                    url: 'http://localhost:8080/porder/getProduct',
+                                    type: 'post',
+                                    data: JSON.stringify(detail),
+                                    dataType: 'json',
+                                    contentType: 'application/json',
+                                    async: false,
+                                    success: function (product) {
+                                        // alert(product.price);
+                                        // alert(formatMoney(product.price));
+                                        msg += "<img src='" + product.path + "' height='100px'/>" + "</td><td>" + product.description;
+                                        msg += "</td><td>$" + formatMoney(product.price) + "</td><td>" + detail.quantity + "</td><td>$" + formatMoney(product.price * detail.quantity) + "</td><td>";
+                                        total += (product.price * detail.quantity);
+                                        // $('#span1').text(total);
+                                        if (detail.sdate == null) {
+                                            msg += "<button class='btn btn-info' onclick='but1(this)' id='" + detail.id + "'>填寫評分</button>";
+                                        } else {
+                                            msg += "已評分";
+                                        }
+                                        msg += "</td></tr>";
+                                    }
+                                });
+
+
+                            });
+
+                            msg += "</tbody></table><br/><hr/>";
+                            totalarr.push(total);
+
+                        });
+
+                        $('#display1').html(msg);
+                        totalarr.forEach((value, index) => {
+                            var spanid = 'span' + (index + 1);
+                            $('#' + spanid).text(formatMoney(value));
+
+                        });
+                    }
+                });
+            }
+
+            function but1(obj) {
+                var id = obj.id;
+                $.ajax({
+                    url: "http://localhost:8080/porder/setSessionDid/" + id,
+                    type: 'post',
+                    success: function () {
+                        //alert('成功');
+                        location.href = "comment.html";
+                    }, error: function (myerror) {
+                        alert('失敗');
+                        console.log(myerror);
+                    }
+                });
+
+            }
+
+            //將數字從後開始每三位加,
+            function formatMoney(number) {
+                /*
+                 * / /: 將正則表達式括號起來
+                 * \B: 用於限制匹配的位置，確保其前後的位置不是單詞邊界
+                 * ?=: 正向先行斷言，pattern1(?=pattern2)，其中 pattern1 是主模式，而 pattern2 是要確保在 pattern1 之後的模式
+                 * \d: 數字
+                 * \d{3}: 連續三個數字
+                 * +: 一個或多個連續的三位數
+                 * ?!: 否定先行斷言
+                 * ?!\d: 在這個位置後面不應該跟著一個數字字符
+                 * g: 使正則表達式尋找整個字串中的所有連續的三位數，並對每個匹配的部分進行處理
+                 * 
+                 * 改/\B(?=(\d{3})+(?!\d))/, ","的話，只有左邊第一個符合的位置會加,
+                */
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
+            window.onload = function () {
+                var numberSpan = document.getElementById("numberSpan");
+                var originalNumber = parseFloat(numberSpan.textContent);
+                var formattedNumber = formatMoney(originalNumber);
+                numberSpan.textContent = formattedNumber;
+            };
+
+
+            function trbtn(i) {
+                location.href = "product/" + i + ".html";
+            }
+        </script>
+</body>
+
+</html>

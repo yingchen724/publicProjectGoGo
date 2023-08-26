@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>GOGOBUY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="headfoot/headfoot.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        .center {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <header>
+            <img src="headfoot/Group.png" vertical-align:middle;style="position:absolute;left:71px;top:18px;"
+                class="imgpt" />
+            <style>
+                a {
+                    color: #D9C4B6;
+                }
+            </style>
+            <a href="default.html" class="apt">products&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">directions&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">F&A&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">contact</a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/search.png" class="imgpt" /></a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:8px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/shopping-cart.png" style="float:right;" class="imgpt" /></a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/user.png" class="imgpt" /></a>
+        </header>
+        <div class="main">
+
+            <div class="center">
+                <div class="container">
+                    <div id="display1"></div>
+                </div>
+            </div>
+
+            <footer>
+                </br>
+                <p>&nbsp;&nbsp;&nbsp;contact</p>
+                <p>&nbsp;&nbsp;&nbsp;we are introduced to the narrator, a pilot, and his ideas about grown-ups</br>
+                    &nbsp;&nbsp;&nbsp;Once when I was six years old I saw a magnificent1 picture in a book, called True
+                    Stories from Nature,</br>
+                    &nbsp;&nbsp;&nbsp;about the primeval forest. It was a picture of a boa constrictor in the act of
+                    swallowing an animal. </br>
+                    &nbsp;&nbsp;&nbsp;Here is a copy of the drawing.</p>
+                <img src="headfoot/IG.png" style="position:absolute;left:1050px;top:250px;" />
+                <img src="headfoot/FB.png" style="position:absolute;left:1110px;top:250px;" />
+                <img src="headfoot/line.png" style="position:absolute;left:1170px;top:250px;" />
+
+            </footer>
+        </div>
+
+
+        <script>
+
+
+            // 定義日期格式
+            var dateFormat = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+            $(document).ready(function () {
+                var windowHeight = window.innerHeight;
+                var headerHeight = $("header").outerHeight();
+                var footerHeight = $("footer").outerHeight();
+                var minContainerHeight = windowHeight - headerHeight - footerHeight;
+                //alert('windowHeight:'+windowHeight+'  headerHeight:'+headerHeight+'  footerHeight:'+footerHeight+'  minContainerHeight:'+minContainerHeight);
+                $('.center').css('min-height', minContainerHeight);
+                //document.getElementById("container").style.min-height = "1000px";
+
+                $.ajax({
+                    url: "http://localhost:8080/vporder/emp",
+                    type: "get",
+                    success: function (data) {
+                        var msg = "<table border='1' class='table'><tr><th>序號</th><th>訂單編號</th>" +
+                            "<th>會員編號</th><th>商品編號</th><th>購買數量</th>"+/*<th>總金額</th>*/"<th>訂購時間</th>" +
+                            "<th>寄送地址</th><th>評分日期</th></tr>";
+                        var date;
+                        data.forEach(row => {
+                            msg += "<tr><td>" + row.id + "</td>";
+                            msg += "<td>" + row.porderid + "</td>";
+                            msg += "<td>" + row.memberid + "</td>";
+                            msg += "<td>" + row.productid + "</td>";
+                            msg += "<td>" + row.quantity + "</td>";
+                            //msg += "<td>" + "(我是總金額)" + "</td>";
+                            // 創建一個Date物件
+                            date = new Date(row.orderdate);
+                            // 格式化日期
+                            var formattedDate = dateFormat.format(date);
+                            msg += "<td>" + formattedDate + "</td>";
+                            msg += "<td>" + row.address + "</td>";
+                            if (row.sdate == null) {
+                                msg += "<td>尚未評分</td></tr>";
+                            } else {
+                                // 創建一個Date物件
+                                date = new Date(row.sdate);
+                                // 格式化日期
+                                var formattedDate = dateFormat.format(date);
+                                msg += "<td>" + formattedDate + "</td></tr>";
+
+                                // console.log(formattedDate);
+                            }
+
+                        });
+                        msg += "</table>";
+
+                        $('#display1').html(msg);
+                    },
+                    error: function (xhr, status, error) {
+                        $('#display1').html("<span style='color:red;'>" + error + "</span>");
+                    }
+                });
+            });
+
+        //會員查詢所有訂單
+        // function showMemPorderList() {
+        //     var id = $('#id').val();
+        //     var date;
+        //     $.ajax({
+        //         url: "http://localhost:8080/porder/" + id,
+        //         type: "get",
+        //         dataType: 'json',
+        //         success: function (data) {
+        //             var msg = "";
+        //             //console.log("data: " + typeof data);
+        //             data.forEach(porder => {
+        //                 // 創建一個Date物件
+        //                 date = new Date(porder.orderdate);
+        //                 // 格式化日期
+        //                 var formattedDate = dateFormat.format(date);
+        //                 msg += "訂單編號: " + porder.porderid
+        //                     + "<br/>訂購時間: " + formattedDate
+        //                     + "<br/>寄送地址: " + porder.address
+        //                     + "<table border='1' class='table'><tr><th>商品編號</th><th>商品照片</th><th>商品名稱</th><th>購買數量</th><th>評分</th></tr>";
+        //                 //console.log("porder.orderDetails: " + typeof porder.orderDetails);
+        //                 porder.orderDetails.forEach(detail => {
+        //                     msg += "<tr><td>" + detail.productid + "</td><td>" + "<img src='img/img356.jpg' height='100px'/>" + "</td><td>" + "(我是商品名稱)" + "</td><td>" + detail.quantity + "</td><td>";
+        //                     if (detail.sdate == null) {
+        //                         var href = 'http://localhost:8080/odetail/' + detail.id;
+        //                         msg += "<a class='btn btn-info' href='http://localhost:8080/odetail/" + detail.id + "'>填寫評分</a>";
+        //                     } else {
+        //                         msg += "已評分";
+        //                     }
+        //                     msg += "</td>";
+        //                 });
+        //                 msg += "</table><br/><hr/><br/>";
+        //             });
+        //             $('#display1').html(msg);
+        //         }
+        //     });
+
+        // }
+
+        //後台查詢所有訂單
+        // function showEmpPorderList() {
+        //     $.ajax({
+        //         url: "http://localhost:8080/vporder/emp",
+        //         type: "get",
+        //         success: function (data) {
+        //             var msg = "<table border='1' class='table'><tr><th>序號</th><th>訂單編號</th>" +
+        //                 "<th>會員編號</th><th>商品編號</th><th>購買數量</th><th>訂購時間</th>" +
+        //                 "<th>寄送地址</th><th>評分日期</th></tr>";
+        //             var date;
+        //             data.forEach(row => {
+        //                 msg += "<tr><td>" + row.id + "</td>";
+        //                 msg += "<td>" + row.porderid + "</td>";
+        //                 msg += "<td>" + row.memberid + "</td>";
+        //                 msg += "<td>" + row.productid + "</td>";
+        //                 msg += "<td>" + row.quantity + "</td>";
+        //                 // 創建一個Date物件
+        //                 date = new Date(row.orderdate);
+        //                 // 格式化日期
+        //                 var formattedDate = dateFormat.format(date);
+        //                 msg += "<td>" + formattedDate + "</td>";
+        //                 msg += "<td>" + row.address + "</td>";
+        //                 // 創建一個Date物件
+        //                 date = new Date(row.sdate);
+        //                 // 格式化日期
+        //                 var formattedDate = dateFormat.format(date);
+        //                 msg += "<td>" + formattedDate + "</td></tr>";
+
+        //                 // console.log(formattedDate);
+        //             });
+        //             msg += "</table>";
+
+        //             $('#display1').html(msg);
+        //         },
+        //         error: function (xhr, status, error) {
+        //             $('#display1').html("<span style='color:red;'>" + error + "</span>");
+        //         }
+        //     });
+        // }
+
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+未完成:
+加入購物車前要先跳到登入頁面，進行登入
+購物車沒有東西時，不能按確認傳送到結帳頁面
+
+
+logintest.html: 臨時的登入頁面，儲存Session用
+
+↓手動切換路徑
+
+memberAllPorderDetail.html: 會員查看歷史訂單明細
+
+↓按填寫評論
+
+comment.html: 填寫評論頁面
+
+↓送出，儲存評論
+
+回到memberAllPorderDetail.html會員查看歷史訂單明細
+
+
+
+
+logintest.html: 臨時的登入頁面，儲存Session用
+
+↓手動切換路徑
+
+addPorder.html: 結帳頁面，接在購物車後
+
+↓送出，儲存訂單、訂單細項
+
+(應該要切回首頁)
+
+
+
+
+employeeAllPorderDetail.html: 後台查看所有訂單明細
+
+
+
+立成提供
+cart.html
+productView.html
+
+

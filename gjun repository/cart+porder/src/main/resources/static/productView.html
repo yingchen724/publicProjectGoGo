@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Product List</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="product-list"></div>
+	<table border='1' width='50%'>
+		<thead>
+			<tr>
+				<th>圖片</th>
+				<th>商片</th>
+				<th>價格</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr id="product-row-template" style="display: none;">
+				<td class="image"><img src="" width="50"></td>
+				<td class="description"></td>
+				<td class="price"></td>
+			<!-- 	<td class="productname"></td> -->
+				<td class="action"><a href='cart/buy/' class='btn btn-primary'>加入購物車</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+<script>
+  $(document).ready(function () {
+    $.ajax({
+      url: "http://localhost:8080/products", 
+      type: "GET",
+      dataType: "json",
+      success: function(data) {
+        var table = $("table");
+        var rowTemplate = $("#product-row-template");
+
+        data.forEach(product => {
+          var row = rowTemplate.clone().removeAttr("id").show();
+          row.find(".image img").attr("src", product.path);
+          row.find(".description").text(product.description);
+          row.find(".price").text(product.price);
+          row.find(".action a").attr("href", 'cart/buy/' + product.productid);
+
+          table.append(row);
+        });
+      },
+      error: function (myerror) {
+        console.log(myerror);
+      },
+    });
+  });
+</script>
+</body>
+</html>
+
+
