@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create New Customer</title>
+
+</head>
+<body>
+  <div class="container">
+  
+	<a href="productCreate" class="btn btn-primary">新增產品</a>
+	<table class="table table-hover">
+
+<table border="1" width="70%">
+	
+  <tr>
+  <th>商品編號</th>  
+  <th>類別</th>  
+  <th>商品名</th>
+  <th>描述</th>  
+  <th>銷量</th>
+  <th>單價</th>  
+  <th>顏色</th>  
+  <th>庫存量</th>
+  <th>備註</th>  
+  <th>圖片路徑</th>
+ </tr>
+
+    <tr th:each="product : ${product} " th:object="${product}">
+        <td th:text="*{productid}">1</td>
+        <td th:text="*{category}"></td>
+        <td th:text="*{productname}"></td>
+        <td th:text="*{description}"></td>
+        <td th:text="*{sales}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{color}"></td>
+        <td th:text="*{stock}"></td>
+        <td th:text="*{remark}"></td>
+        <td th:text="*{path}"></td>
+
+    <td><a th:href="@{productUpdate(id=${product.productid})}" class="btn btn-warning">修改</a> <a
+	th:href="@{productDelete(id=${product.productid})}" class="btn btn-danger" onclick="return confirm('刪除確認?')">刪除</a></td>
+    </tr>
+</table>
+</body>
+</html>
