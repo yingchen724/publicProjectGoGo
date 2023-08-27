@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Cart Page</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <caption>
+        <h2 align="center">我的購物車</h2>
+    </caption>
+    <table border="1" width="50%" id="cartTable" align="center" cellspacing="0">
+        <thead>
+            <tr>
+                <th><input type="checkbox" class="all">全選</th>
+                <th>名稱</th>
+                <th>照片</th>
+                <th>數量</th>
+                <th>價格</th>
+                <th>小計</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="cart-row-template" style="display: none" class="sp">
+
+                <td><input type="checkbox" name="sort" align="center"></td>
+                <td class="description"></td>
+                <td class="picture"><img src="" width="50" /></td>
+                <td class="quantity" id="" onclick="updateMtotal(this)"><input type="number" min="1" max="100" /></td>
+                <td class="price" id=""></td>
+                <td class="mtotal" id=""></td>
+                <td class="action"><a href="/cart/remove/" onclick="return confirm('確認刪除')"
+                        class="btn btn-danger">刪除</a></td>
+            </tr>
+        </tbody>
+
+        <tr>
+            <td colspan="7" align="right">總價：<span class="totalPrice"></span></td>
+        </tr>
+    </table>
+    <div align="center">
+        <a href="productView.html" class="btn btn-success">回上一頁</a>
+        <a href="#" id="confirmorder" class="btn btn-secondary">確認購物</a>
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    function loadCartData() {
+        //get & show session cart (List<Item>)
+        $.ajax({
+            url: "/cart/getAll",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                var table = $("table");
+                var rowTemplate = $("#cart-row-template");
+                var totalCartPrice = 0;
+
+                data.forEach(item => {
+
+                    var row = rowTemplate.clone().removeAttr("id").show();
+                    row.find(".description").text(item.product.description);
+                    row.find(".picture img").attr("src", item.product.path);
+                    row.find(".quantity input").val(item.quantity);
+                    row.find(".price").text(item.product.price);
+
+                    var itemTotalPrice = item.product.price * item.quantity;
+
+                    row.find(".mtotal").text(itemTotalPrice); // 小計
+
+                    row
+                        .find(".action a")
+                        .attr("href", "/cart/remove/" + item.product.productid);
+
+                    table.append(row);
+                });
+
+                $(".totalPrice").text(totalCartPrice); // 初始化購物中總價顯示
+
+                $("input[name='sort']").click(function () {
+                    var total = 0;
+                    $("input[name='sort']:checked").each(function () {
+                        var $row = $(this).closest("tr");
+                        var priceText = $row.find('.price').text();
+                        var quantityValue = $row.find(".quantity input").val();
+                        var itemTotal = priceText * quantityValue;
+                        total += itemTotal;
+                    });
+                    $(".totalPrice").text(total); // 更新購物中總價顯示
+                });
+
+            },
+            error: function (myerror) {
+                console.log(myerror);
+            },
+        });
+    }
+
+
+    $(document).ready(function () {
+        loadCartData();
+
+
+
+    });
+
+    //##########################################   
+
+    //點擊增加數量對小計做計算
+    function updateMtotal(obj) {
+
+        var $quantityElement = $(obj); // 轉換成 jQuery 物件
+        var qValue = $quantityElement.find('input[type="number"]').val();
+
+        var $row = $quantityElement.closest('tr'); // 找到最近的tr元素
+        var priceText = $row.find('.price').text(); // 找到所在行的價格
+
+        var sum = qValue * priceText;
+
+        $row.find('.mtotal').text(sum);
+
+
+        updatetotalPrice();
+    }
+    //##########################################
+
+    // 更新購物中總價 (checkbox按下時)
+    function updatetotalPrice() {
+        var total = 0;
+        $("input[name='sort']:checked").each(function () {
+            var $row = $(this).closest("tr");
+            var priceText = $row.find('.price').text();
+            var quantityValue = $row.find(".quantity input").val();
+            var itemTotal = priceText * quantityValue;
+            total += itemTotal;
+        });
+        $(".totalPrice").text(total);
+    }
+
+    $(function () {
+        //按確認購物按紐時
+        $("#confirmorder").click(function () {
+            updatetotalPrice();
+            var selectedItems = [];
+            //checkbox勾選的話
+            $("input[name='sort']:checked").each(function () {
+                var $row = $(this).closest("tr");
+                var description = $row.find(".description").text();
+                var quantity = $row.find(".quantity input").val();
+                var price = $row.find(".price").text();
+                var itemTotal = $row.find(".mtotal").text();
+
+                //array增加一個Item物件
+                var product = {};
+                product.description = description;
+                selectedItems.push({
+                    product: product,
+                    quantity: quantity
+                });
+            });
+
+            $.ajax({
+                url: "/cart/confirmorder", // 此處應該是實際的後端 URL
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(selectedItems),
+                success: function (response) {
+                    console.log("購物資料已成功送至後端處理。", response);
+                    // 在此處處理後端回傳的任何訊息或操作
+                },
+                error: function (error) {
+                    console.error("傳送購物資料到後端時發生錯誤。", error);
+                }
+            });
+        });
+    });
+
+</script>
