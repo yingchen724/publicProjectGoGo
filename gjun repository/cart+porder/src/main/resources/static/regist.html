@@ -1,0 +1,63 @@
+<!DOCTYPE html> <!-- 正确的DOCTYPE声明 -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>first html</title>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+</style>
+</head>
+<body>
+    <form id="myForm">
+        姓名:<input type="text" name="name" id="name"></br>
+        email: <input type="text" name="email" id="email"/><br/>
+        地址:<input type="text" name="address" id="address"></br>
+        電話:<input type="text" name="mobile" id="mobile"></br>
+        密碼:<input type="password" name="password" id="password"></br>
+    <input type="submit"/></br>
+        
+    </form>
+    <div id="msg"></div>
+<script>
+
+    
+
+
+   function result(data,status){
+        alert(status);
+        $("#msg").html(data);
+        
+    }
+    function prepare(evt){          
+        evt.preventDefault();
+          
+        var obj={};
+        obj.name=$("#name").val();
+        obj.email=$("#email").val();
+        obj.address=$("#address").val();
+        obj.mobile=$("#mobile").val();
+        obj.password=$("#password").val();
+        obj.again=$("#again").val();
+        $.ajax({
+            url: 'http://localhost:8080/api/addmember',
+            type: 'post', 
+            dataType: 'text',//從後端接收
+            contentType: 'application/json',
+            data: JSON.stringify(obj), // 将对象转换为JSON字符串
+            success: result,
+            error: function(myerror){
+                console.log(myerror);
+            }
+        });
+    }
+    $("#myForm").submit(prepare);
+    // 修改ID为"myForm"的选择器，从$("#myform") 改为 $("#myForm")
+    
+
+
+
+</script>
+
+</body>
+</html>

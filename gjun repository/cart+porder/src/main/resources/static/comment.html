@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>GOGOBUY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="headfoot/headfoot.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        .notification {
+            display: none;
+            position: fixed;
+            bottom: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(50%);
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            animation: fadeInUp 0.5s ease-in-out, fadeOutUp 0.5s ease-in-out 1s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateX(-50%) translateY(150%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(-50%) translateY(50%);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOutUp {
+            from {
+                transform: translateX(-50%) translateY(50%);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(-50%) translateY(-50%);
+                opacity: 0;
+            }
+        }
+
+        .div2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bt1 {
+            background-color: #223555;
+            color: white;
+            border: 1px solid #223555;
+        }
+
+        .bt2 {
+            background-color: white;
+            color: #223555;
+            border: 1px solid #223555;
+        }
+
+        .div1 {
+            margin: 20px;
+        }
+
+        #img6 {
+            border-radius: 10px;
+        }
+
+        #div3 {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <header>
+            <img src="headfoot/Group.png" vertical-align:middle;style="position:absolute;left:71px;top:18px;"
+                class="imgpt" />
+            <style>
+                a {
+                    color: #D9C4B6;
+                }
+            </style>
+            <a href="default.html" class="apt">products&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">directions&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">F&A&nbsp;&nbsp;&nbsp;</a>
+            <a href="default.html" class="apt">contact</a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/search.png" class="imgpt" /></a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:8px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/shopping-cart.png" style="float:right;" class="imgpt" /></a>
+            <a href="default.html" class="apt" style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="headfoot/user.png" class="imgpt" /></a>
+        </header>
+        <div class="main">
+
+            <div class="center">
+                <div class="container div2">
+                    <div class="div1">
+                        <img id="img6" width="400px" />
+                    </div>
+                    <div class="div1">
+                        <h3 id="productname"></h3><br />
+                        <form id="myForm">
+                            評分:<br />
+                            <input type="hidden" name="score" id="score" value="0" />
+                            <img src="img/starwhite.png" onclick="star1()" width="30px" id="img1" />
+                            <img src="img/starwhite.png" onclick="star2()" width="30px" id="img2" />
+                            <img src="img/starwhite.png" onclick="star3()" width="30px" id="img3" />
+                            <img src="img/starwhite.png" onclick="star4()" width="30px" id="img4" />
+                            <img src="img/starwhite.png" onclick="star5()" width="30px" id="img5" />
+                            <br /><br />
+                            評論內容:<br />
+                            <textarea cols="40" rows="5" name="message" id="message"
+                                placeholder="(選填)"></textarea><br />
+                            <div id="div3">
+                                <input type="submit" value="確 認 送 出" class="btn btn-primary bt1" style="width:40%" />
+                                <a href="memberAllPorderDetail.html" class="btn btn-danger bt2" style="width:40%">取
+                                    消</a>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div id="customNotification" class="notification">這是一個自定義通知</div>
+
+            <footer>
+                </br>
+                <p>&nbsp;&nbsp;&nbsp;contact</p>
+                <p>&nbsp;&nbsp;&nbsp;we are introduced to the narrator, a pilot, and his ideas about grown-ups</br>
+                    &nbsp;&nbsp;&nbsp;Once when I was six years old I saw a magnificent1 picture in a book, called True
+                    Stories from Nature,</br>
+                    &nbsp;&nbsp;&nbsp;about the primeval forest. It was a picture of a boa constrictor in the act of
+                    swallowing an animal. </br>
+                    &nbsp;&nbsp;&nbsp;Here is a copy of the drawing.</p>
+                <img src="headfoot/IG.png" style="position:absolute;left:1050px;top:250px;" />
+                <img src="headfoot/FB.png" style="position:absolute;left:1110px;top:250px;" />
+                <img src="headfoot/line.png" style="position:absolute;left:1170px;top:250px;" />
+
+            </footer>
+        </div>
+
+        <script>
+
+
+            //set comment score
+            var lastStar = 0;
+            function star1() {
+                if (lastStar == 1) {
+                    resetStar();
+                    return;
+                }
+                $('#img1').attr('src', "img/star213555.png");
+                $('#img2').attr('src', "img/starwhite.png");
+                $('#img3').attr('src', "img/starwhite.png");
+                $('#img4').attr('src', "img/starwhite.png");
+                $('#img5').attr('src', "img/starwhite.png");
+                $('#score').val(1);
+                lastStar = 1;
+                // alert(lastStar);
+            }
+            function star2() {
+                if (lastStar == 2) {
+                    resetStar();
+                    return;
+                }
+                $('#img1').attr('src', "img/star213555.png");
+                $('#img2').attr('src', "img/star213555.png");
+                // $('#img1').attr('src', "img/star4F709C.png");
+                // $('#img2').attr('src', "img/star4F709C.png");
+                $('#img3').attr('src', "img/starwhite.png");
+                $('#img4').attr('src', "img/starwhite.png");
+                $('#img5').attr('src', "img/starwhite.png");
+                $('#score').val(2);
+                lastStar = 2;
+                // alert(lastStar);
+            }
+            function star3() {
+                if (lastStar == 3) {
+                    resetStar();
+                    return;
+                }
+                $('#img1').attr('src', "img/star213555.png");
+                $('#img2').attr('src', "img/star213555.png");
+                $('#img3').attr('src', "img/star213555.png");
+                $('#img4').attr('src', "img/starwhite.png");
+                $('#img5').attr('src', "img/starwhite.png");
+                $('#score').val(3);
+                lastStar = 3;
+                // alert(lastStar);
+            }
+            function star4() {
+                if (lastStar == 4) {
+                    resetStar();
+                    return;
+                }
+                $('#img1').attr('src', "img/star213555.png");
+                $('#img2').attr('src', "img/star213555.png");
+                $('#img3').attr('src', "img/star213555.png");
+                $('#img4').attr('src', "img/star213555.png");
+                $('#img5').attr('src', "img/starwhite.png");
+                $('#score').val(4);
+                lastStar = 4;
+                // alert(lastStar);
+            }
+            function star5() {
+                if (lastStar == 5) {
+                    resetStar();
+                    return;
+                }
+                $('#img1').attr('src', "img/star213555.png");
+                $('#img2').attr('src', "img/star213555.png");
+                $('#img3').attr('src', "img/star213555.png");
+                $('#img4').attr('src', "img/star213555.png");
+                $('#img5').attr('src', "img/star213555.png");
+                $('#score').val(5);
+                lastStar = 5;
+                // alert(lastStar);
+            }
+
+            //reset star
+            function resetStar() {
+                $('#img1').attr('src', "img/starwhite.png");
+                $('#img2').attr('src', "img/starwhite.png");
+                $('#img3').attr('src', "img/starwhite.png");
+                $('#img4').attr('src', "img/starwhite.png");
+                $('#img5').attr('src', "img/starwhite.png");
+                $('#score').val(0);
+                lastStar = 0;
+                // alert(lastStar);
+            }
+
+            // var id;
+            // //get detail id
+            // $(document).ready(function () {
+            //     $.get({
+            //         url: 'http://localhost:8080/porder/sessionOrderdetailid',
+            //         type: 'post',
+            //         //dataType: 'json',
+            //         //data是detail id
+            //         success: function (data) {
+            //             //alert(data);
+            //             id = data;
+            //             //alert(id);
+            //         }
+            //     });
+            // });
+
+            $(document).ready(function () {
+                // alert(lastStar);
+
+                //set product name & img
+                var detail = {};
+                detail.id =
+                    $.ajax({
+                        url: "http://localhost:8080/odetail/getProduct",
+                        type: "post",
+                        dataType: 'json',
+                        success: function (data) {
+                            $('#productname').html(data.description);
+                            $('#img6').attr("src", data.path);
+                        }, error: function () {
+                            alert('error!');
+                        }
+                    });
+            })
+
+
+            // send and save comment score & message
+            $('#myForm').submit(function (evt) {
+                evt.preventDefault();
+                if ($('#score').val() == 0) {
+                    // alert('請選擇評分!');
+                    showCustomNotification('請選擇評分!');
+                    return;
+                }
+                var orderDetail = {};
+                orderDetail.score = $('#score').val();
+                orderDetail.message = $('#message').val();
+                $.ajax({
+                    url: "http://localhost:8080/odetail/setComment",
+                    type: "put",
+                    data: JSON.stringify(orderDetail),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function () {
+                        //alert('已新增評論!');
+                        showCustomNotification('已新增評論!');
+                        location.href = "memberAllPorderDetail.html";
+                    }, error: function () {
+                        alert('error!');
+                    }
+                });
+            });
+
+            //show custom notification
+            function showCustomNotification(str) {
+                var notification = $('#customNotification');
+                notification.css('display', 'block');
+                notification.text(str);
+
+                setTimeout(function () {
+                    notification.css('display', 'none');
+                }, 1500);
+            }
+        </script>
+
+</body>
+
+</html>
