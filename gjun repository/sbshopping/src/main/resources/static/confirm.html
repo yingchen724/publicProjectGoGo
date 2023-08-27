@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Page</title>
+</head>
+<body>
+    <h2>確認訂單</h2>
+    <ul id="cartItems"></ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "/cart/confirmorder",
+                type: "POST", // 根據實際情況進行修改
+                dataType: "json",
+                success: function (data) {
+                    var cartItems = $("#cartItems");
+
+                    if (data && data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            var item = data[i];
+                            var listItem = document.createElement("li");
+                            listItem.textContent = item.description + " - 數量：" + item.quantity + " - 價格：" + item.price + " - 小計：" + item.itemTotal;
+                            cartItems.append(listItem);
+                        }
+                    } else {
+                        var emptyItem = document.createElement("li");
+                        emptyItem.textContent = "購物車為空";
+                        cartItems.append(emptyItem);
+                    }
+                },
+                error: function (error) {
+                    console.error("取得購物車資訊時發生錯誤。", error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
