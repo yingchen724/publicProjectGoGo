@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Product View</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<!-- 掛其他HTML -->
+</head>
+<div id="heading"></div>
+<script>
+ function rs(data){
+   $("#heading").html(data);
+ }
+ function start(){
+    alert();
+  	$.get("/headfoot2.html", rs);
+
+ }
+$(document).ready(start);
+</script>
+
+<!-- 掛其他HTML -->
+
+<body>
+	<div class="container">
+	    <h1>Products</h1>
+		<div class="row">			
+			<div class="col-md-4" th:each="product : ${products}">
+				<div class="card">
+					<img class="card-img-top" th:src="${product.path}" alt="Card image">
+					<div class="card-body">
+						<h4 class="card-title" th:text="${product.productname}">John Doe</h4>
+						<p class="card-text" th:text="${product.description}">Some example text.</p>
+						價格:<p class="card-text" th:text="${product.price}">price</p>
+						  <a th:href="@{'/productRetrieveAll/'+${product.productid}}" class="btn btn-primary">buy</a> 
+						
+						<!-- <form><input type="hidden" th:text="${productid}"><input type="submit"></form>  -->
+						
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	
+	
+	     <div id="page-container">
+      <footer>
+        <p>contact</p>
+        <p>we are introduced to the narrator, a pilot, and his ideas about grown-ups</br>
+        Once when I was six years old I saw a magnificent1 picture in a book, called True Stories from Nature,</br>
+        about the primeval forest. It was a picture of a boa constrictor in the act of swallowing an animal. </br>
+        Here is a copy of the drawing.</p> 
+      <img src="./img/IG.png"style="position:absolute;left:1050px;top:250px;"/>
+      <img src="./img/FB.png"style="position:absolute;left:1110px;top:250px;"/>
+      <img src="./img/line.png"style="position:absolute;left:1170px;top:250px;"/>
+    </footer>
+    </div>
+	
+	
+</body>
+</html>

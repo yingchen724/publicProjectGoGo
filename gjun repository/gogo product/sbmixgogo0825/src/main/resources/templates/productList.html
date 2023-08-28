@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create New Customer</title>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="headfoot/headfoot.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+ 
+        .bgcolor-headermain {
+            background-color: #D8C4B6;
+        }
+
+        .center {
+            padding-top: 20px;
+        }
+
+
+        .bgcolor-main {
+            background-color: #223555;
+            color: white
+        }
+
+
+
+        a {
+        text-decoration: none; /* 去掉超連結的底線 */
+    }
+
+
+        .customUD-button:hover {
+        background-color: #BD005B; /* 更改背景顏色 */
+        color: white
+    }
+
+    .customAUD-button:active {
+    background-color: #4F709C; /* 按下按鈕的顏色 */
+    color: white;
+}
+
+    .customCR-button:hover {
+        background-color: #4F709C; /* 更改背景顏色 */
+        color: white
+    }
+
+    .customACR-button:active {
+    background-color: #F5EFE7; /* 按下按鈕的顏色 */
+    color: white;
+}
+
+
+.customUD-button,
+.customAUD-button {
+    color: white !important; /* 設置文字顏色為白色並使用 !important */
+    /* 其他樣式屬性 */
+}
+
+
+    </style>
+
+
+</head>
+<body>
+
+    <style>
+        a {
+            color: #D9C4B6;
+        }
+    </style>
+
+  <div class="container">
+  
+	<a href="productCreate" class="btn bgcolor-main customCR-button customACR-button">新增產品</a>
+	<table class="table table-hover">
+
+<table border="1" class='table td-center'><thead>
+	
+  <tr class='bgcolor-headermain'>
+  <th width='140px'>商品編號</th>
+  <th width='120px'>類別</th>  
+  <th width='100px'>商品名</th>
+  <th width='140px'>描述</th>  
+  <th width='140px'>銷量</th>
+  <th width='100px'>單價</th>  
+  <th width='100px'>顏色</th>  
+  <th width='120px'>庫存量</th>
+  <th width='120px'>備註</th>  
+  <th width='140px'>圖片路徑</th>
+ </tr></tr></thead>
+
+    <tr th:each="product : ${product} " th:object="${product}">
+        <td th:text="*{productid}">1</td>
+        <td th:text="*{category}"></td>
+        <td th:text="*{productname}"></td>
+        <td th:text="*{description}"></td>
+        <td th:text="*{sales}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{color}"></td>
+        <td th:text="*{stock}"></td>
+        <td th:text="*{remark}"></td>
+        <td th:text="*{path}"></td>
+
+    <td width='140px'><a th:href="@{productUpdate(id=${product.productid})}" class="btn bgcolor-main customUD-button customAUD-button btn-info">修改</a><br>
+         <a
+	th:href="@{productDelete(id=${product.productid})}" style="margin-top:13px; display: inline-block;" class="btn bgcolor-main customUD-button customAUD-button btn-info" onclick="return confirm('刪除確認?')">刪除</a></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create New Product</title>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="headfoot/headfoot.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        .wrap {
+            display: flex;
+            margin: 0 auto;
+            /* background-color: pink; */
+        }
+
+        .cright {
+
+            position: absolute;
+            top: 50%; left: 45%;
+            transform: translate(-50%, -50%);
+
+
+            background-color: #D9C4B6;
+            width: 35%;
+            /* padding: 60px; */
+            padding: 120px;
+            margin: 100px;
+            border-radius: 40px;
+        }
+
+        
+
+
+ 
+
+        .bgcolor-main {
+            background-color: #223555;
+            color: white
+        }
+
+
+
+        a {
+        text-decoration: none; /* 去掉超連結的底線 */
+    }
+
+
+        .customUD-button:hover {
+        background-color: #BD005B; /* 更改背景顏色 */
+        color: white
+    }
+
+    .customAUD-button:active {
+    background-color: #4F709C; /* 按下按鈕的顏色 */
+    color: white;
+}
+
+    .customCR-button:hover {
+        background-color: #4F709C; /* 更改背景顏色 */
+        color: white
+    }
+
+    .customACR-button:active {
+    background-color: #F5EFE7; /* 按下按鈕的顏色 */
+    color: white;
+}
+
+
+
+
+
+    </style>    
+    
+
+</head>
+<body>
+
+
+  <div class="main">
+    
+    <form action="productCreate" method ="post" class="needs-validation">
+    <div class="center">
+        <div class="wrap container">
+
+
+            <div class="cright">
+
+                <h3 class="color-main">商品查詢</h3>
+                <p></p>
+                <div class="display">
+                    
+                    <tr>
+                        <td width="30%">商品編號</td>
+                        <td width="70%"><input type="text" name="productid" style="width:100%; text-align: right;" required/></td><br><br>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">類別</td>
+                        <td width="70%"><input type="text" name="category" style="width:100%; text-align: right;" required/></td><br><br>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">商品名</td>
+                        <td width="70%"><input type="text" name="productname" style="width:100%; text-align: right;" required/></td><br><br>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">描述</td>
+                        <td width="70%"><input type="text" name="description" style="width:100%; text-align: right;"/></td><br><br>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">銷量</td>
+                        <td width="70%"><input type="text" name="sales" style="width:100%; text-align: right;" required/></td><br><br>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">單價</td>
+                        <td width="70%"><input type="text" name="price" style="width:100%; text-align: right;" required/></td><br><br>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">顏色</td>
+                        <td width="70%"><input type="text" name="color" style="width:100%; text-align: right;"/></td><br><br>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">庫存量</td>
+                        <td width="70%"><input type="text" name="stock" style="width:100%; text-align: right;" required/></td><br><br>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">備註</td>
+                        <td width="70%"><input type="text" name="remark" style="width:100%; text-align: right;"/></td><br><br>
+                    </tr>
+
+
+                    <tr>
+                        <td width="30%">圖片路徑</td>
+                        <td width="70%"><input type="text" name="path" style="width:100%; text-align: right;"/></td><br><br>
+                    </tr>
+
+
+                    <div id="div1">
+
+                    </div><br>
+
+                </div>
+
+
+                <div style="text-align: right;">
+                                      
+                     <a href="http://localhost:8080/productRetrieveAll">  
+                    <input type="button" value="查詢" style="display: inline-block;" class="btn bgcolor-main customCR-button customACR-button"
+                        />    
+                    </a>
+
+
+                    <input type="submit" value="新增" style="margin-left:13px; display: inline-block;" class="btn bgcolor-main customCR-button customA-button"
+                        />   
+                    
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+</form>    
+
+    <footer>
+    </br>
+
+
+</footer>
+</div>
+
+<script>
+
+
+</script>
+</body>
+</html>

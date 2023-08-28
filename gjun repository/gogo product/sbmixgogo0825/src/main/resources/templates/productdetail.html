@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>GOGOBUY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/gogo/productedetail/style.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Hubballi">
+
+
+          <link rel="stylesheet" href="./headfoot.css">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+          <style>
+              .wrap {
+                  display: flex;
+              }
+      
+              .cleft {
+                  background-color: white;
+                  width: 55%;
+              }
+      
+              .cright {
+                  background-color: #D9C4B6;
+                  width: 45%;
+                  padding: 10px;
+              }
+      
+              .table1 {
+                  margin-left: 50px;
+              }
+      
+              .up {
+                  padding: 20px;
+              }
+      
+              .label1 {
+                  margin-left: 50px;
+              }
+      
+              .table2 {
+                  margin: 20px;
+              }
+      
+              .color-main {
+                  color: #223555;
+              }
+      
+              .bgcolor-main {
+                  background-color: #223555;
+                  color: white
+              }
+          </style>
+
+
+
+
+</head>
+
+<body>
+    <div style="height:800px;overflow-y:auto">
+        <header>
+          <a href="index.html"vertical-align:middle;style="position:absolute;left:71px;top:18px;"class="imgpt">
+            <img src="./img/Group.png" />
+          </a>
+            <style>
+                a {color:#D9C4B6;}
+                </style>
+            <div class="dropdown">
+              <a href="./menu.html"class="dropbtn">
+                products&nbsp;&nbsp;&nbsp;</a>
+                <ul class="dropdown-content">
+                  <li><a href="#"style="color:#223555;text-decoration: none;">Europe</a>
+                    </li>
+                  <li><a href="#"style="color:#223555;text-decoration: none;">Japan</a>
+                    </li>
+                </ul>
+            </div>
+            <a href="./directions.html"class="apt">directions&nbsp;&nbsp;&nbsp;</a>
+            <a href="./FA.html"class="apt">F&A&nbsp;&nbsp;&nbsp;</a>
+            <a href="./contact.html"class="apt">contact</a>
+            <input class="search-bar" type="text" name="search" id="search" placeholder="輸入關鍵字"style="position:relative;left:600px;top:20px;color:#223555;text-decoration: none;
+            width: 200px;height: 32px;font-size: 16px;font-family:Hubballi;">
+            <input  type="image"  name="search"  id="search_Btn"  img  src="./img/search.png"  
+            onClick="document.form1.submit()"
+            style="position:relative;left:600px;top:32px">&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="./img/shopping-cart.png"class="apt"style="position:relative;left:500px;top:8px">&nbsp;&nbsp;&nbsp;&nbsp;
+              <img src="./img/shopping-cart.png"style="float:right;"class="imgpt" /></a>
+            <a href="memberlogin.html"class="apt"style="position:relative;left:500px;top:5px">&nbsp;&nbsp;&nbsp;&nbsp;
+              <img src="./img/user.png"class="imgpt"/></a>
+        </header>
+
+
+ 
+            
+
+			
+            <div class="main">
+
+              <div class="center">
+                    <div class="wrap container">
+                        <div class="cright">
+                            
+                            <table width="100%" class="table2">
+                                <tr>
+                                    <td width="100%" rowspan="2"><img src="./picture/imgf01s.jpg" alt="" width="100%"></td>
+                                    
+                                </tr>
+                                
+                            </table>
+                            
+                            </table>
+                        </div>
+                        <div class="cleft">
+                            <div class="up">
+    							<!--  -->
+    							<div >
+    							<!--  -->
+                                <h1 class="color-main" th:text="${product.productname}">商品名稱</h1><br>
+                                <h4 class="color-main">商品要點</h4><br><br>
+                                商品編號： <td th:text="${product.productid}"></td><br><br>
+                                數量： <input type="number" ng-model="sales" min="1" max="99"><br><br><br>
+                                <a href="../productdetail1.html">aaa</a>
+                                </div>
+                                <!-- <table class="table1" width="70%">
+    
+                                    <tr th:each="product : ${product} " th:object="${product}">
+                                        <script src="https://cdn.staticfile.org/angular.js/1.8.1/angular.min.js"></script>
+                                        <div ng-app="" ng-init="sales=1;price=1">                                 
+    
+                                        product
+                                        數量： <input type="number" ng-model="sales"><br><br><br>
+                                        價格： <td th:text="*{price}" ng-model="price"></td><br><br>
+                                       
+    
+                                    </tr>
+    
+    
+                                </table>-->
+                            </div>
+                           
+    
+                                <button style="margin-left:50%" class="btn btn-primary bgcolor-main">加入購物車</button>
+                            </div>
+    
+    
+    
+    
+                        </div>
+    
+    
+                    </div>
+    
+                </div>
+
+
+<script>
+  
+/*function prouctfindid(){
+	
+$.get("http://localhost:8080/productid=?",
+               {"userName":user.val(),"password":pass.val()}
+               ,result);
+}           
+              $(document).ready(prouctfindid)*/
+              
+              /*測試location網址無法連接*/
+              $(document).ready(function(){
+            		//location.href = "productdetail1.html"  ;
+              });
+              
+</script>
+
+
+
+      <div id="page-container">
+      <footer>
+        <p>contact</p>
+        <p>we are introduced to the narrator, a pilot, and his ideas about grown-ups</br>
+        Once when I was six years old I saw a magnificent1 picture in a book, called True Stories from Nature,</br>
+        about the primeval forest. It was a picture of a boa constrictor in the act of swallowing an animal. </br>
+        Here is a copy of the drawing.</p> 
+        <img src="./img/IG.png"style="position:absolute;left:1350px;top:250px;"/>
+        <img src="./img/FB.png"style="position:absolute;left:1410px;top:250px;"/>
+        <img src="./img/line.png"style="position:absolute;left:1470px;top:250px;"/>
+    </footer>
+    </div>
+</body>
+
+</html>

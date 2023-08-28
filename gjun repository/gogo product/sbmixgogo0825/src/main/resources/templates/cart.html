@@ -1,0 +1,79 @@
+<html>
+<head>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<title>Cart Page</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div class="container">
+		<h2>Cart Page</h2>
+		<a href="/products">Continue Shopping</a>
+		<div class="row">
+			<table class="table table-light table-hover" border="1">
+				<tr class="table table-danger">
+					<th>Id</th>
+					<th>Name</th>
+					<th>Photo</th>
+					<th>Price</th>
+					<th>Qty</th>
+                    <th>Action</th>
+
+
+				</tr>
+				<tr th:each="item : ${cart}">
+					<td th:text="${item.product.id }"></td>
+					<td th:text="${item.product.productname }"></td>
+					<td><img th:src="@{'/'+${item.product.path}}" width="150"></td>
+					<td th:text="${item.product.price }"></td>
+					<td th:text="${item.quantity }"></td>
+
+                    <td><input type="number" th:value="${item.quantity}" th:id="@{'num'+${item.product.id }}" onclick="saveNumber(this)"></td>
+					<td>
+                    
+<!--                   <td>
+                   <a th:href="@{'/cart/remove/'+${item.product.id }}"
+					onclick="return confirm('確定要刪除')" class="btn btn-danger">刪除</a>
+                   
+                   <a th:href="@{'/cart/update/'+${item.product.id }}" onclick="return update(this);"
+					    class="btn btn-primary">修改</a></td>
+                      </td>
+                   </td>
+-->
+				</tr>
+                <input type="hidden" id="nums"/>			
+
+			</table>
+		</div>
+	</div>
+
+
+	<script>
+	   function saveNumber(obj){
+		   var n=document.getElementById("nums");
+		   n.value=obj.value;
+	   }
+	   
+	   <!--  
+	   function update(obj){
+		   var v=document.getElementById("nums").value;		   		   
+		   var str=obj.href;	
+		   //str.split(";")因為 href有帶著server session id 所以必須分離
+		   obj.href=str.split(";")[0]+"/"+v;
+		   alert(obj.href);
+		   return confirm('確定要修改');
+	   }
+	   -->
+	</script>
+
+
+</body>
+</html>
